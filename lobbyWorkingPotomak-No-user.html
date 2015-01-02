@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+  <head> <meta http-equiv="refresh" content="30">
+  
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-instagram/0.3.1/instagram.min.js"></script>
+<style type="text/css">
+    body {
+      margin-top: 1.0em;
+      background-color: #000000;
+      font-family: Helvetica, Arial, FreeSans, san-serif;
+      color: #ffffff;
+    }
+    #container {
+      margin: 0 auto;
+      width: 700px;
+    }
+    h1 { font-size: 3.8em; color: #ffffff; margin-bottom: 3px; }
+    h1 .small { font-size: 0.4em; }
+    h1 a { text-decoration: none }
+    h2 { font-size: 1.5em; color: #ffffff; }
+    h3 { text-align: center; color: #ffffff; }
+    a { color: #ffffff; }
+    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+    .download { float: right; }
+    pre { background: #000; color: #fff; padding: 15px;}
+    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+    .footer { text-align:center; padding-top:30px; font-style: italic; }
+  </style>
+  <script type="text/javascript">
+  /* <![CDATA[ */
+    (function() {
+      var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+      t.parentNode.insertBefore(s, t);
+    })();
+  /* ]]> */
+  </script>
+
+<script>
+    function createPhotoElement(photo) {
+      var innerHtml = $('<img>')
+        .addClass('instagram-image')
+        .attr('src', photo.images.thumbnail.url);
+
+      innerHtml = $('<a>')
+        .attr('target', '_blank')
+        .attr('href', photo.link)
+        .append(innerHtml);
+
+      return $('<div>')
+        .addClass('instagram-placeholder')
+        .attr('id', photo.id)
+        .append(innerHtml);
+    }
+
+    function didLoadInstagram(event, response) {
+      var that = this;
+
+      $.each(response.data, function(i, photo) {
+        $(that).append(createPhotoElement(photo));
+      });
+    }
+
+    $(document).ready(function() {
+      var clientId = 'baee48560b984845974f6b85a07bf7d9';
+      
+      $('.instagram.tag').on('didLoadInstagram', didLoadInstagram);
+      $('.instagram.tag').instagram({
+        hash: 'Marriott',
+        count: 5,
+        clientId: clientId
+      });
+      
+      $('.instagram.location').on('didLoadInstagram', didLoadInstagram);
+      $('.instagram.location').instagram({
+        location: {
+          id: 514276
+        },
+        count: 5,
+        clientId: clientId
+      });
+      
+      $('.instagram.search').on('didLoadInstagram', didLoadInstagram);
+      $('.instagram.search').instagram({
+        search: {
+          lat: 48.858844,
+          lng: 2.294351
+        },
+        count: 5,
+        clientId: clientId
+      });
+    });
+  </script>
+
+  </head>
+  <body>
+
+    <div id="container">
+    
+    <p>Instagram photos tagged with #hipster.</p>
+    <div class="instagram tag"></div>
+    
+    <p>Instagram photos at position (48.858844, 2.294351).</p>
+    <div class="instagram search"></div>
+
+    <h2>License</h2>
+    <p>See <a href="https://raw.github.com/potomak/jquery-instagram/master/LICENSE">LICENSE</a>.</p>
+
+    <h2>Authors</h2>
+    <p>Giovanni Cappellotto (<a href="http://twitter.com/johnnyaboh">@johnnyaboh</a>)</p>
+
+    <h2>Download</h2>
+    <p>
+      You can download this project in either
+      <a href="http://github.com/potomak/jquery-instagram/zipball/master">zip</a> or
+      <a href="http://github.com/potomak/jquery-instagram/tarball/master">tar</a> formats.
+    </p>
+    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
+      by running:
+      <pre>$ git clone git://github.com/potomak/jquery-instagram</pre>
+    </p>
+
+    <h2>CDN</h2>
+    <p><a href="//cdnjs.cloudflare.com/ajax/libs/jquery-instagram/0.3.1/instagram.min.js">//cdnjs.cloudflare.com/ajax/libs/jquery-instagram/0.3.1/instagram.min.js</a></p>
+
+    <div class="footer">
+      get the source code on GitHub : <a href="http://github.com/potomak/jquery-instagram">potomak/jquery-instagram</a>
+    </div>
+
+  </div>
+    {% if arrivals[0] %}
+    <pre>
+      Guest Name: {{arrivals[0].guestName}}
+      Type: {{arrivals[0].memberType}}
+      Message: {{arrivals[0].message}}
+      Handle: {{arrivals[0].handle}}
+      Date: {{arrivals[0].date}}
+      <img height=50 width=50 src="{{arrivals[0].avatar}}"></img>
+    </pre>
+    {% else %}
+    welcome to the lobby, show pics here
+    {% endif %}
+
+
+    {% if tokens[0] %}
+      Got a token {{tokens[0].accessToken}}
+    {% else %}
+      no Access token, try logging into the app
+    {% endif %}
+    <ul>
+      <li>
+    </ul>
+  
+  </body>
+</html>
+{% endautoescape %}

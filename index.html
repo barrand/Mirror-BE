@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css"/>
+  </head>
+  
+  <body>
+    {% for arrival in arrivals %}
+    <pre>
+      Guest Name: {{arrival.guestName}}
+      Type: {{arrival.memberType}}
+      Message: {{arrival.message}}
+      Handle: {{arrival.handle}}
+      Date: {{arrival.date}}
+      <img height=50 width=50 src="{{arrival.avatar}}"></img>
+    </pre>
+    {% endfor %}
+  </body>
+</html>
+{% endautoescape %}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+  <head> <meta http-equiv="refresh" content="30">
+  <script type="text/javascript" src="js/instafeed.js"></script>
+  {% if token %}
+    
+    <script type="text/javascript">
+        var feed = new Instafeed({
+          get: 'user',
+          accessToken: '{{token.accessToken}}',
+          userId: {{token.userid}},
+          clientId: 'c6cadc7fd91b4cee85388bfae1a04c2b'
+        });
+        feed.run();
+      </script>
+  {% else %}
+      <script type="text/javascript">
+        var feed = new Instafeed({
+            get: 'tagged',
+            tagName: 'jwmarriott',
+            clientId: 'c6cadc7fd91b4cee85388bfae1a04c2b'
+        });
+        feed.run();
+      </script>
+  {% endif %}
+  
+  </head>
+  <body>
+    {% if arrival %}
+      <img height=50 width=50 src="{{arrival.avatar}}"></img> Welcome {{arrival.memberType}} member <b> {{arrival.guestName}} </b>
+      <h2>{{arrival.message}}</h2>
+    {% endif %}
+
+
+    {% if not token %}
+      <h2>Welcome to the Marriott lobby!</h2>
+    {% endif %}
+    <div id="instafeed"></div>
+  </body>
+</html>
+{% endautoescape %}

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+  <body>
+    {% for arrival in arrivals %}
+      Welcome {{arrival.memberType}}
+    {% endfor %}
+  </body>
+</html>
+{% endautoescape %}
